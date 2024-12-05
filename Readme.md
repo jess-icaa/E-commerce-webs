@@ -19,3 +19,9 @@
    2. mongoose : npm i mongoose
    3. cors : npm i cors
    4. nodemon : npm i nodemon
+  
+## MILESTONE 3
+ 1. Set up of nodejs server and handle api requests
+ 2. Connecting application to MongoDB to store and manage data.
+ 3. Connecting Database and server.
+ 4. Error Handler (to rectify where errors occured in filename.js)
