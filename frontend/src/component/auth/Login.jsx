@@ -8,11 +8,11 @@ function LoginPage() {
     });
 
     const handleChange = (event) => {
+        const {name, value} = event.target;
         setCreds({
             ...credentials,
             [name] : value
         })
-        const {name, value} = event.target;
         console.log(name, value);
     };
     const handleClickLogin = () => {};
@@ -27,6 +27,7 @@ function LoginPage() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   id="email"
                   autoComplete="email"
                   required
@@ -42,6 +43,7 @@ function LoginPage() {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   id="password"
                   placeholder="**************"
                   className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
