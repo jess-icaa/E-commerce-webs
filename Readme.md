@@ -25,3 +25,9 @@
  2. Connecting application to MongoDB to store and manage data.
  3. Connecting Database and server.
  4. Error Handler (to rectify where errors occured in filename.js)
+
+
+## MILESTONE 4
+1. Creating a User Model
+2. Creating a User Controller (to handle user related data)
+3. Enabling and configuration Multer (to enable file uploads)
