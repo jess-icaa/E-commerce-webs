@@ -1,7 +1,8 @@
 const ErrorHandler = require('../utils/ErrorHandler.js');
 const UserModel = require('../models/user.model.js');
 const transporter = require('../utils/sendmail.js');
-const jwt = require('jsonwebtoken');``
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 require('dotenv').config({
     path: '../config/.env',
@@ -46,6 +47,40 @@ async function CreateUser(req, res) {
         html: `<h1>Hello World http://localhoast:5173/activation/${token} </h1>`
     })
 
+    await newUSer.save();
+
+    return res.send('User Created Successfully');
+
+    const generateToken = (data) => {
+        const token = jwt.sign({name: data.name, email: data.email },
+            process.env.SECRET_KEY);
+        return token;
+    };
+
+    const verifyUser = (token) => {
+        const verify = jwt.verify(token, process.env.SECRET_KEY);
+        if (verify) {
+            return verify;
+        } else {
+            return false;
+        }
+    };
+
+    async function verifyUserController(req, res) {
+        const { token } = req.params;
+        try {
+            if (verifyUser(token)) {
+                return res
+                .status(200)
+                .cookie('token', token)
+                .json({ token, success: true });
+            }
+            return res.status(403).send({ message: 'token expired' });
+        } catch (er) {
+            return res.status(403).send({ message: er.message });
+        }    
+    }
+
     await transporter.sendMail({
         to: 'jessicashalomin@kalvium.community',
         from: 'jessicashalomin@gmail.com',
@@ -53,38 +88,67 @@ async function CreateUser(req, res) {
         text: 'Text',
         html: <h1>Hello world https://localhost:5173/activation/{token} </h1>
     })
-    await newUSer.save();
-    return res.send('User Created Successfully');
+
+    
 }
 
-const generateToken = (data) => {
-    const token = jwt.sign({name: data.name, email: data.email },
-        process.env.SECRET_KEY);
-    return token;
+const signup = async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const checkUserPresentinDB = await UserModel.findOne({ email: email });
+        if (checkUserPresentinDB) {
+            return setDriver.status(403).send({ message: 'User already present' });
+        }
+
+        bcrypt.hash(password, 10, async function (err, hashedPassword) {
+            try {
+                if (err) {
+                    return res.status(403).send({ message: err.message });
+                }
+                await UserModel.create({ 
+                    Name: name,
+                    email,
+                    password: hashedPassword,
+                });
+
+                return res.status(201).send({ message: 'User created successfully..' });
+            } catch (er) {
+                return res.status(500).send({ message: er.message });
+            }
+        });
+    } catch (er) {
+        return res.status(500).send({ message: er.message });
+    } 
 };
 
-const verifyUser = (token) => {
-    const verify = jwt.verify(token, process.env.SECRET_KEY);
-    if (verify) {
-        return verify;
-    } else {
-        return false;
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const checkUserPresentinDB = await UserModel.findOne({ email: email });
+
+        bcrypt.compare(
+            password,
+            checkUserPresentinDB.password,
+            function (err, result) {
+                if (err) {
+                    return res.status(403).send({ message: er.message, success: false });
+                }
+                let data = {
+                    id: checkUserPresentinDB._id,
+                    email,
+                    password: checkUserPresentinDB.password,
+                };
+                const token = generateToken(data);
+
+                return res
+                .status(200)
+                .cookie('token', token)
+                .send({ message: 'User logged in successfully..', success: true });
+            }
+        );
+    } catch (er) {
+        return res.status(403).send({ message: er.message, success: false});
     }
 };
 
-async function verifyUserController(req, res) {
-    const { token } = req.params;
-    try {
-        if (verifyUser(token)) {
-            return res
-            .status(200)
-            .cookie('token', token)
-            .json({ token, success: true });
-        }
-        return res.status(403).send({ message: 'token expired' });
-    } catch (er) {
-        return res.status(403).send({ message: er.message });
-    }    
-}
-
-module.exports = { CreateUser, verifyUserController };
+module.exports = { CreateUser, verifyUserController, signup, login };

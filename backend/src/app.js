@@ -1,5 +1,5 @@
 const express = require('express');
-const userRouter = require('./routes/user.route');
+const userRouter = require('./routes/user.route.js');
 
 if (process.env.NODE_ENV !== 'PRODUCTION') {
     require('dotenv').config({
@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 const app = express();
 
 app.use(express.json());
-const userRouter
+
 app.get("/", (req, res)=>{
     return res.send("Welcome to backend");
 });
