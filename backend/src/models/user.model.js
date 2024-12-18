@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     address : [{city : String }, {country : String}, {add1 : String}, {add2 : String}, {zip : String}, {addressType : String}],
     role : {type:String, default: 'user'},
     avatar : { 
-        url : { type : String, require : true}, 
-        public_id : {type : String, require : true},
+        url : { type : String}, 
+        public_id : {type : String},
     },
     resetPasswordToken : String,
     resetPasswordTime : Date,

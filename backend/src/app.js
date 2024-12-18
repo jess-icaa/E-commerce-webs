@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 const app = express();
 
 app.use(express.json());
-const `userRouter
+const userRouter
 app.get("/", (req, res)=>{
     return res.send("Welcome to backend");
 });
