@@ -31,3 +31,22 @@
 1. Creating a User Model
 2. Creating a User Controller (to handle user related data)
 3. Enabling and configuration Multer (to enable file uploads)
+
+
+## MILESTONE 5
+1. Build-up of sign up page with the help of HTML and CSS.
+2. Implementing Form Validation to ensure the user's valid input of data.
+
+
+## MILESTONE 6
+1. Make use of JWT Tokens.
+2. Create a URL with a token to send in an email.
+3. Nodemailer used to send verification emails.
+4. Creation of an enpoint for verification of token and activating the user.
+
+
+## MILESTONE 7
+1. Encryption of passwords before saving them.
+2. Validate user credentials during login using bcrypt.
+3. Compare encrypted password with user entered password.
+
