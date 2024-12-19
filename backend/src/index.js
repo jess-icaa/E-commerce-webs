@@ -12,3 +12,4 @@ const server = app.listen(PORT, async () => {
     connectDatabase();
     console.log('The Server is running on Port:8080 URL : http://localhost:8080');
 });
+
