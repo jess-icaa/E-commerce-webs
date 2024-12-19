@@ -50,3 +50,21 @@
 2. Validate user credentials during login using bcrypt.
 3. Compare encrypted password with user entered password.
 
+
+## MILESTONE 8
+1. Creating the Card Component.
+2. Designing the Homepage Layout.
+
+
+## MILESTONE 9
+1. Creating the form for the products.
+2. Form should take multiple product images images as input
+
+
+## MILESTONE 10
+1. Creating the structure of product data which includes name, description, price, image URL with the help of Mongoose.
+2. Ensuring each field has proper validation like required fields, correct data types.
+3. Creation of Endpoint. 
+
+
+
