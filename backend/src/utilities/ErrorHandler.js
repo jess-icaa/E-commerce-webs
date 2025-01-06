@@ -5,4 +5,4 @@ class ErrorHandler extends Error{
         this.statusCode = statusCode;
     }
 }
-module.export = ErrorHandler;
+module.exports = ErrorHandler;
