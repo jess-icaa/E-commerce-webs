@@ -1,6 +1,6 @@
-const ErrorHandler = require('../utils/ErrorHandler.js');
+const ErrorHandler = require('../utilities/ErrorHandler.js');
 const UserModel = require('../models/user.model.js');
-const transporter = require('../utils/sendmail.js');
+const transporter = require('../utilities/sendmail.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -44,13 +44,13 @@ async function CreateUser(req, res) {
         from: 'jessicashalomin@gmail.com',
         subject: 'verification email sent for follow along project',
         text: 'Text',
-        html: `<h1>Hello World http://localhoast:5173/activation/${token} </h1>`
+        html: `<h1> Hello World http://localhoast:5173/activation/${token} </h1>`
     })
 
     await newUSer.save();
 
     return res.send('User Created Successfully');
-
+}
     const generateToken = (data) => {
         const token = jwt.sign({name: data.name, email: data.email },
             process.env.SECRET_KEY);
@@ -80,17 +80,8 @@ async function CreateUser(req, res) {
             return res.status(403).send({ message: er.message });
         }    
     }
-
-    // await transporter.sendMail({
-    //     to: 'jessicashalomin@kalvium.community',
-    //     from: 'jessicashalomin@gmail.com',
-    //     subject: 'verification email - follow along',
-    //     text: 'Text',
-    //     html: <h1>Hello world https://localhost:5173/activation/{token} </h1>
-    // })
-
     
-}
+
 
 const signup = async (req, res) => {
     const { name, email, password } = req.body;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Upload } from 'lucide-react';
+import  { useState } from 'react';
+
 import axios from 'axios';
 function ProductEntryPage() {
   const [formData, setFormData] = useState({
@@ -74,7 +74,7 @@ function ProductEntryPage() {
     // axios request post
     axios.post('http://localhost:8080/product/create-product', formData, {
       headers: {
-        'Content-Type': 'multi-part/form-data',
+        'Content-Type': 'multipart/form-data',
       },
     });
   };

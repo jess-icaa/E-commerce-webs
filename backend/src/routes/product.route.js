@@ -17,4 +17,3 @@ router.get('/get-products',  getProductDataController);
 
 module.exports = router;
 
-``

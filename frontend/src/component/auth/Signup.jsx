@@ -1,57 +1,61 @@
 import { useState } from 'react';
-import ValidationFormObject from '../validation';
+import ValidationFormObject from '../../validation.js';
 import { Link } from 'react-router-dom';
-
 function SignupForm() {
-    const [data, setData] = useState({
-        name:'',
-        email:'',
-        password:'',
-        file:'',
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    file: '',
+  });
+  const [error, setError] = useState('');
+  // name
+  // pass
+  // email
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
     });
+    // console.log(data);
+  };
 
-    const [error, setError] = useState('');
-
-
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData({
-            ...data, 
-            [name]:value,
-        });
-        // console.log(data);
-    };
-
-    const handleSubmit = () => {
-        const NameV = ValidationFormObject.validteName(data.name);
-        const EmailV = ValidationFormObject.validteEmail(data.email);
-        const PassV = ValidationFormObject.validtePass(data.password);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const NameV = ValidationFormObject.validteName(data.name);
+    const EmailV = ValidationFormObject.validteEmail(data.email);
+    const PassV = ValidationFormObject.validtePass(data.password);
 
     if (typeof NameV == 'string' && NameV.length > 1) {
-        return setError(NameV);
+      return setError(NameV);
     }
     if (typeof EmailV == 'string' && EmailV.length > 2) {
-        return setError(EmailV);
+      return setError(EmailV);
     }
-
     if (typeof PassV == 'string' && PassV.length > 2) {
-        return setError(PassV);
+      return setError(PassV);
     }
-
-};
+    setError('');
+    // axios request
+  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form 
-        className="w-full max-w-md p-6 bg-white rounded-lg shadow-md" 
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form
         onSubmit={handleSubmit}
+        className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Signup</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Signup
+        </h2>
 
         {/* Name Field */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="name">
+          <label
+            htmlFor="name"
+            className="block text-gray-700 font-medium mb-2"
+          >
             Name
           </label>
           <input
@@ -61,13 +65,17 @@ function SignupForm() {
             value={data.name}
             onChange={handleChange}
             placeholder="Enter your name"
-            className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
 
         {/* Email Field */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 font-medium mb-2"
+          >
             Email
           </label>
           <input
@@ -77,13 +85,17 @@ function SignupForm() {
             value={data.email}
             onChange={handleChange}
             placeholder="Enter your email"
-            className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
 
         {/* Password Field */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="password">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 font-medium mb-2"
+          >
             Password
           </label>
           <input
@@ -93,38 +105,45 @@ function SignupForm() {
             value={data.password}
             onChange={handleChange}
             placeholder="Enter your password"
-            className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
 
         {/* File Input Field */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="file">
+        <div className="mb-6">
+          <label
+            htmlFor="file"
+            className="block text-gray-700 font-medium mb-2"
+          >
             Upload File
           </label>
           <input
             type="file"
             id="file"
             name="file"
-            accept=".jpg , .jpeg, .png"
+            accept=".jpg , .jpeg , .png"
             onChange={handleChange}
-            className="w-full mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full text-gray-700 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
 
         {/* Submit Button */}
+        <p className="text-red">{error}</p>
         <button
           type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Signup
         </button>
+
         <p className="text-center">
           Already have an account ? <Link to={'/login'}>Login</Link>
         </p>
       </form>
     </div>
   );
-};
+}
 
 export default SignupForm;

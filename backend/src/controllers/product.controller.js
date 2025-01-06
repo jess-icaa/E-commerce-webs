@@ -1,5 +1,5 @@
-const multer = require('multer');
-const cloudinary = require('../utils/cloudinary.js');
+const multer = require('multer'`);
+const cloudinary = require('../utilities/cloudinary.js');
 const fs = require('fs');
 const ProductModel = require('../models/product.model.js');
 
@@ -8,7 +8,7 @@ const createProductController = async (req, res) => {
     title,
     description,
     rating,
-    discoutPrice,
+    discountedPrice,
     originalPrice,
     quantity,
     category,
@@ -22,6 +22,7 @@ const createProductController = async (req, res) => {
       })
       .then((result) => {
         fs.unlinkSync(singleFile.path);
+        return result.url
       });
     });
 

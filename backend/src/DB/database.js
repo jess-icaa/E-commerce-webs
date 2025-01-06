@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 const mongoose = require('mongoose');
 
 const connectDatabase = () => {
+    // console.log(process.env.DB_URL)
     mongoose
     .connect(process.env.DB_URL)
     .then((data)=>{
