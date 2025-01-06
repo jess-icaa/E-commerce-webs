@@ -1,0 +1,23 @@
+meta {
+  name: andi
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "askdjhaksdh",
+    "name": "ASKDJHASD",
+    "password":"gaybro"
+  }
+}
+
+body:multipart-form {
+  FILE: @file(/Users/jessicashalominselvan/Downloads/_ (7).jpeg)
+}

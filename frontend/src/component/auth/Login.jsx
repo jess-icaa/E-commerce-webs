@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
     
@@ -9,13 +10,16 @@ function LoginPage() {
 
     const handleChange = (event) => {
         const {name, value} = event.target;
+        console.log(name, value);
         setCreds({
             ...credentials,
-            [name] : value
-        })
-        console.log(name, value);
+            [name] : value,
+        });
     };
-    const handleClickLogin = () => {};
+        // console.log(name, value);
+    const handleClickLogin = () => {
+      
+    };
     return (
         <>
           <h1 className="text-3xl font-bold text-center mt-8">Login Page</h1>
@@ -55,6 +59,13 @@ function LoginPage() {
               >
                 Login
               </button>
+
+              <div>
+
+          </div>
+          <p className="text-center">
+            Dont have an account ? <Link to={'/signup'}>Sign up</Link>
+          </p>
             </form>
           </div>
         </>
@@ -63,23 +74,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-
-// return (
-    //     <>
-    //     <h1>Login Page</h1>
-    //     <div>
-    //         <form action="">
-    //             <div>
-    //             <label htmlFor="">Enter Email :</label>
-    //             <input type="email" placeholder="abc@example.com" />
-    //             </div>
-    //             <div>
-    //                 <label htmlFor="">Enter Password :</label>
-    //                 <input type="password" placeholder="**************"/>
-    //             </div>
-    //             <button>Login</button>
-    //         </form>
-    //     </div>
-    //     </>
-    // )
