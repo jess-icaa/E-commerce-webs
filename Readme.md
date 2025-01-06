@@ -21,4 +21,6 @@
    4. nodemon : npm i nodemon
 
 
+## Milestone 11
+1. Writing GET endpoint in order to fetch data and send to client.
 

@@ -81,13 +81,13 @@ async function CreateUser(req, res) {
         }    
     }
 
-    await transporter.sendMail({
-        to: 'jessicashalomin@kalvium.community',
-        from: 'jessicashalomin@gmail.com',
-        subject: 'verification email - follow along',
-        text: 'Text',
-        html: <h1>Hello world https://localhost:5173/activation/{token} </h1>
-    })
+    // await transporter.sendMail({
+    //     to: 'jessicashalomin@kalvium.community',
+    //     from: 'jessicashalomin@gmail.com',
+    //     subject: 'verification email - follow along',
+    //     text: 'Text',
+    //     html: <h1>Hello world https://localhost:5173/activation/{token} </h1>
+    // })
 
     
 }
