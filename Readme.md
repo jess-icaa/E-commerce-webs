@@ -69,4 +69,8 @@
 
 ## Milestone 11
 1. Writing GET endpoint in order to fetch data and send to client.
+2. Receiving data at frontend
 
+## Milestone 12
+1.
+2.
