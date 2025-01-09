@@ -6,6 +6,17 @@ meta {
 
 post {
   url: http://localhost:8080/product/create-product
-  body: none
+  body: multipartForm
   auth: none
+}
+
+body:multipart-form {
+  title: Mens Levi's
+  description: svsdbfwwfrn
+  rating: 4.7
+  discountedPrice: 1299
+  originalPrice: 1500
+  quantity: 1
+  category: male
+  files: @file()
 }

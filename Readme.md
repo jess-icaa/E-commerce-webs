@@ -72,5 +72,13 @@
 2. Receiving data at frontend
 
 ## Milestone 12
-1.
-2.
+1. Used Get request to fetch products from backend with axios.
+2. Used UseEffect() to load products.
+3. Card Component is used to display product details. 
+
+
+## Mileestone 13
+1. Writing Endpoint that updates the existing data in MongoDB.
+2. Auto-fill the form and provide options to edit the data that is already entered in the form.
+
+
