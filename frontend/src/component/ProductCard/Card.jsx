@@ -59,6 +59,9 @@ function Card({
           </button>
           </Link>
           </div>
+          <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">
+            🗑️
+          </button>
       </div>
     </div>
   );
