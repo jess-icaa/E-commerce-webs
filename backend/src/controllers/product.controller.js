@@ -139,8 +139,28 @@ const getSingleProductDocumentController = async(req, res)=> {
   }
 }
 
+const deleteSingleProduct = async(req, res)=> {
+  const {id} = req.params;
+  try{
+    const data=await ProductModel.findOne({_id: id});
+    if(!data){
+      return res.status(404).send({essage: 'Product not found'});
+    }
+    await ProductModel.findByIdAndDelete({ _id: id});
+    const newData= await ProductModel.find();
+    return res.status(200).send({
+      message: 'Product successfully fetched',
+      data: newData,
+      success: true,
+    })
+  } catch (error) {
+    return res.status(500).send({message: error.message, success: false})
+  }
+}
+
 module.exports = { 
   createProductController , 
   getProductDataController, 
   updateProductController,
-  getSingleProductDocumentController};
+  getSingleProductDocumentController,
+  deleteSingleProduct};
