@@ -4,7 +4,8 @@ import Signup from "../src/component/auth/Signup";
 import HomePage from "./Pages/HomePage";
 import ProductEntryPage from "./Pages/ProductEntryPage";
 import UpdateForm from "./Pages/UpdateForm";
-import Navbar from "./component/Navbar/navbar";
+import Navbar from "./component/Navbar";
+import SinglePageProduct from "./Pages/SingleProductPage";
 
 function App () {
   return (
@@ -18,9 +19,10 @@ function App () {
       <Route path="/login" element={<Login />}/>
       <Route path="/product-entry-page" element={<ProductEntryPage />} />
       <Route path="/update-form/:id" element={<UpdateForm />} />
+      <Route path="/product-details/:id" element={<SinglePageProduct />} />
     </Routes>
     </>
   );
 }
 
-export default App;``
+export default App;

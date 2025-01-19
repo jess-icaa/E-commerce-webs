@@ -15,6 +15,7 @@ const createProductController = async (req, res) => {
   } = req.body;
 
   try {
+    console.log(req.fikes, req.body);
     const arrayImage = req.files.map(async (singleFile, index) => {
       return cloudinary.uploader
       .upload(singleFile.path, {
@@ -36,6 +37,7 @@ const createProductController = async (req, res) => {
       quantity,
       category,
       images: dataImages,
+      userEmail: req.userEmailAddress,
     });
     return res.status(201).send({
       message: 'Image Successfully Uploaded',

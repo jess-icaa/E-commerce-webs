@@ -1,6 +1,7 @@
 const multer = require('multer');
-const upload = multer({ dest: 'temp-uploads/' });
 const express = require('express');
+const verifyUser = require('../middlewares/jwt-verify.js');
+
 const {
     createProductController,
     getProductDataController,
@@ -8,11 +9,15 @@ const {
     getSingleProductDocumentController,
     deleteSingleProduct,
 } = require('../controllers/product.controller.js');
+
 const router = express.Router();
+
+const upload = multer({ dest: 'temp-uploads/' });
 
 router.post(
     '/create-product',
     upload.array('files', 5),
+    verifyUser,
     createProductController
 );
 
@@ -24,6 +29,8 @@ router.put(
 );
 
 router.get('/get-single/:id', getSingleProductDocumentController);
+// router.get('/get-products', getProductDataController);
+ 
 router.delete('/:id', deleteSingleProduct);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import { useState , useEffect} from "react";
 import Card from '../component/ProductCard/Card';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     const [data, setdata] = useState();
@@ -37,6 +38,7 @@ function HomePage() {
                 {data?.map((ele, index) => {
                     return ( 
                         <div key={index} style={{ margin: 'auto' }} className="border border-white">
+                            <Link to={`/product-details/${ele._id}`}>
                             <Card 
                             title={ele.title} 
                             image={ele.images[0] ? ele.images[0] : 'Product Image missing'}
@@ -48,6 +50,7 @@ function HomePage() {
                             id={ele._id}
                             handleDelete={handleDelete}
                             />
+                            </Link>
                         </div>
                     );
                 })}
