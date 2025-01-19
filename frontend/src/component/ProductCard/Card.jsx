@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prop-types */
@@ -9,6 +10,7 @@ function Card({
   discountedPrice,
   originalPrice, 
   id,
+  handleDelete, 
 }) {
   return (
     <div className="w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
@@ -59,9 +61,9 @@ function Card({
           </button>
           </Link>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200" onClick={()=>handleDelete(id)}>
             🗑️
-          </button>
+          </button>``
       </div>
     </div>
   );

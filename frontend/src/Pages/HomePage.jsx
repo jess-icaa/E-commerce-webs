@@ -21,6 +21,12 @@ function HomePage() {
         callhandle();
     }, []);
     console.log(data);
+
+    const handleDelete = async(id)=>{
+        console.log('id', id);
+        const data= await axios.delete(`https://localhost:8080/product/${id}`);
+        setdata(data.data.data)
+    }
     //     new Array(20).fill({ title: 'Product Title '})
 
     return (
@@ -40,6 +46,7 @@ function HomePage() {
                             discountedPrice={ele.discountedPrice}
                             rating={ele.rating} 
                             id={ele._id}
+                            handleDelete={handleDelete}
                             />
                         </div>
                     );
@@ -49,4 +56,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;``
+export default HomePage;
