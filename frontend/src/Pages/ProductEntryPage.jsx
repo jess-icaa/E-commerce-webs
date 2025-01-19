@@ -72,7 +72,8 @@ function ProductEntryPage() {
 
     console.log(formDataBody);
     // axios request post
-    axios.post('http://localhost:8080/product/create-product', formData, {
+    const token = localStorage.getItem('token');
+    axios.post(`http://localhost:8080/product/create-product?token=${token}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
