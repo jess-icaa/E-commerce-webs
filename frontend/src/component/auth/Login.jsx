@@ -16,10 +16,7 @@ function LoginPage() {
             [name] : value,
         });
     };
-        // console.log(name, value);
-    const handleClickLogin = () => {
-      
-    };
+
     return (
         <>
           <h1 className="text-3xl font-bold text-center mt-8">Login Page</h1>

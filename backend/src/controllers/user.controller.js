@@ -3,6 +3,8 @@ const UserModel = require('../models/user.model.js');
 const transporter = require('../utilities/sendmail.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const cloudinary = require('../utilities/cloudinary.js');
+const fs = require('fs');
 
 require('dotenv').config({
     path: '../config/.env',
@@ -90,6 +92,17 @@ const signup = async (req, res) => {
         if (checkUserPresentinDB) {
             return setDriver.status(403).send({ message: 'User already present' });
         }
+        console.log(req.file, process.env.cloud_name);
+
+        const ImageAddress = await cloudinary.uploader
+        .upload(req.file.path, {
+            folder: "uploads",
+        })
+        .then((result) => {
+            fs.unlinkSync(req.file.path);
+            return result.url;
+        }).catch((err) => {console.log(err.message)});
+        console.log("url", ImageAddress);
 
         bcrypt.hash(password, 10, async function (err, hashedPassword) {
             try {
@@ -100,6 +113,10 @@ const signup = async (req, res) => {
                     Name: name,
                     email,
                     password: hashedPassword,
+                    avatar: {
+                        url: ImageAddress,
+                        public_id: `${email}_public_id`,
+                    }
                 });
 
                 return res.status(201).send({ message: 'User created successfully..' });

@@ -81,3 +81,13 @@
 1. Writing Endpoint that updates the existing data in MongoDB.
 2. Auto-fill the form and provide options to edit the data that is already entered in the form.
 
+## Milestone 14
+1. Writing an Endpoint which deletes the product that is specified by an ID from MongoDB.
+
+## Milestone 15
+1. Adding a NavBar component
+2. Be able to use this Navbar component in multiple pages.
+
+## Milestone 16
+1. Creating a new page to display each product.
+2. Creating an option to add quantity or add to cart buttons.
