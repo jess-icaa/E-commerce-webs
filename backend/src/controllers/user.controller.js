@@ -54,7 +54,7 @@ async function CreateUser(req, res) {
     return res.send('User Created Successfully');
 }
     const generateToken = (data) => {
-        const token = jwt.sign({name: data.name, email: data.email },
+        const token = jwt.sign({name: data.name, email: data.email, id:data.id },
             process.env.SECRET_KEY);
         return token;
     };
@@ -93,7 +93,6 @@ const signup = async (req, res) => {
             return setDriver.status(403).send({ message: 'User already present' });
         }
         console.log(req.file, process.env.cloud_name);
-
         const ImageAddress = await cloudinary.uploader
         .upload(req.file.path, {
             folder: "uploads",

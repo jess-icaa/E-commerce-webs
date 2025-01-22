@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginPage() {
     
@@ -8,20 +9,29 @@ function LoginPage() {
         password : '',
     });
 
+    const navigate= useNavigate();
+
     const handleChange = (event) => {
         const {name, value} = event.target;
-        console.log(name, value);
         setCreds({
-            ...credentials,
-            [name] : value,
+          ...credentials,
+          [name]:value,
         });
+    };
+
+    const handleClickLogin = async (e) => {
+      e.preventDefault();
+      const response = await axios.post('http://localhost:8080/user/login', credentials);
+      localStorage.setItem('token', response.data.token);
+      console.log(data);
+      navigate('/');
     };
 
     return (
         <>
           <h1 className="text-3xl font-bold text-center mt-8">Login Page</h1>
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <form className="bg-white p-8 shadow-md rounded-md w-96">
+            <form className="bg-white p-8 shadow-md rounded-md w-96" onSubmit={{handleClickLogin}}>
               <div className="mb-6">
                 <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
                   Enter Email:
@@ -41,7 +51,7 @@ function LoginPage() {
               <div className="mb-6">
                 <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
                   Enter Password:
-                </label>
+            ``    </label>
                 <input
                   type="password"
                   name="password"

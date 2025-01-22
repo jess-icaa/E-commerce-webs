@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import ValidationFormObject from '../../validation.js';
-import { Link } from 'react-router-dom';
-function SignupForm() {
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+export default function SignupPage() {
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -13,19 +15,26 @@ function SignupForm() {
   // pass
   // email
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
+    if(name=='file'){
+      setData({
+        ...data,
+        [name]: files[0],
+      });
+    }else{
     setData({
       ...data,
       [name]: value,
-    });
+    })
+  }
     // console.log(data);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const NameV = ValidationFormObject.validteName(data.name);
-    const EmailV = ValidationFormObject.validteEmail(data.email);
-    const PassV = ValidationFormObject.validtePass(data.password);
+    const NameV = ValidationFormObject.validateName(data.name);
+    const EmailV = ValidationFormObject.validateEmail(data.email);
+    const PassV = ValidationFormObject.validatePass(data.password);
 
     if (typeof NameV == 'string' && NameV.length > 1) {
       return setError(NameV);
@@ -38,6 +47,22 @@ function SignupForm() {
     }
     setError('');
     // axios request
+
+    const formDataBody = new FormData();
+    formDataBody.append('email', data.email);
+    formDataBody.append('password', data.password);
+    formDataBody.append('name', data.name);
+    formDataBody.append('file', data.file);
+    try{
+      await axios.post('http://localhost:8080/user/signup', formDataBody, {
+        headers:{
+          'Content-Type':'multipart/form-data'
+        }
+      })
+      navigateUser('/login');
+    } catch (error) {
+      console.log('Something wrong happened', error.message);
+    }
   };
 
   return (
@@ -65,8 +90,9 @@ function SignupForm() {
             value={data.name}
             onChange={handleChange}
             placeholder="Enter your name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+
           />
         </div>
 
@@ -85,8 +111,8 @@ function SignupForm() {
             value={data.email}
             onChange={handleChange}
             placeholder="Enter your email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -105,8 +131,8 @@ function SignupForm() {
             value={data.password}
             onChange={handleChange}
             placeholder="Enter your password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
