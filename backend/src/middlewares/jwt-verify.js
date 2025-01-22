@@ -4,13 +4,14 @@ if(process.env.DB_URL !== 'PRODUCTION'){
         path:'../config/.env'
     })
 }
-const verifyUser = (err, req, res, next) => {
-    if(req.body.token) {
+const verifyUser = (req, res, next) => {
+    const {token}=req.query;
+    if(!token) {
         return res.status(404).send({message: 'Send token over request'})
     }
-    const data = jwt.verify(req.body.token, process.env.SECRET_KEY);
+    const data = jwt.verify(token, process.env.SECRET_KEY);
     req.userEmailAddress = data.email;
     next();
-}
+};
 
 module.exports=verifyUser;

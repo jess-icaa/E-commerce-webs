@@ -12,6 +12,18 @@ function Card({
   id,
   handleDelete, 
 }) {
+  const handleAddToCart=async()=>{
+    const token=localStorage.getItem('token')
+    try{
+      await axios.post(`http://localhost:8080/cart/add-to-cart?token=${token}`,
+        {
+          productID: id, quantity: 1
+        }
+      )
+    } catch (error) {
+      alert(error.message)
+    }
+  }
   return (
     <div className="w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       {/* Image Container */}
