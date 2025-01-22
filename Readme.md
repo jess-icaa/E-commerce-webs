@@ -91,3 +91,11 @@
 ## Milestone 16
 1. Creating a new page to display each product.
 2. Creating an option to add quantity or add to cart buttons.
+
+## Milestone 17
+1. Making the User Schema to store cart productss
+2. To write an endpoint that recieves all product details and stores them in database.
+
+## Milestone 18
+1. Creating an Endpoint to recieve request from cart page.
+2. Creating a backend endpoint to fetch all the products inside cart with the user's email. 
