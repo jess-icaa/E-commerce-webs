@@ -99,3 +99,12 @@
 ## Milestone 18
 1. Creating an Endpoint to recieve request from cart page.
 2. Creating a backend endpoint to fetch all the products inside cart with the user's email. 
+
+## Milestone 19
+1. Creating a cart page that displays the products inside cart using endpoint.
+2. Adding an option for increasing or decreasing the quantity using + and - buttons for wach product.
+3. Using an endpoint to increase and decrease quantity.
+
+## Milestone 20
+1. Creating a backend endpoint that sends all user data using mail.
+2. Creating a frontend profile page that displays all the user data i.e., display profile photo, name, mail and addresses.`
