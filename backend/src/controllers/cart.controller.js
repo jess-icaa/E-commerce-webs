@@ -38,7 +38,7 @@ async function getProducts(req, res){
         if(!checkUserPresent){
             return res.status(401).send({message:'unauthorized'})
         }
-        const data= await cartModel.find({userId})
+        const data= await cartModel.find({userId}).populate('productId');
         return res.status(200).send({
             message:'Data is successfully fetched',
             success: true,
