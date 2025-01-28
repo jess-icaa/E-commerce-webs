@@ -11,6 +11,7 @@ const verifyUser = (req, res, next) => {
     }
     const data = jwt.verify(token, process.env.SECRET_KEY);
     req.userEmailAddress = data.email;
+    req.UserId = data.id;
     next();
 };
 

@@ -19,7 +19,7 @@ async function CreateUser(req, res) {
     });
 
     if (CheckUserPresent) {
-        const error = new ErrorHandler('User already exists', 400);
+        const error = new ErrorHandler('Already Present in DB', 400);
 
 
         return res.status(404).send({
@@ -179,4 +179,35 @@ const getUserData = async (req, res) => {
     }
 };
 
-module.exports = { CreateUser, verifyUserController, signup, login, getUserData };
+const AddAddressController = async (req, res) => {
+    const userId = req.UserId;
+    const { city, country, address1, address2, zipCode, addressType } = req.body();
+    try {
+        const userFindOne = await UserModel.findOne({ _id: userId });
+        if (!userFindOne) {
+            return res
+            .status(404)
+            .send({ message: 'User not found', success: false});
+        }
+
+        const userAddress = {
+            country,
+            city,
+            address1,
+            address2,
+            zipCode,
+            addressType,
+        };
+
+        userFindOne.address.push(userAddress);
+        const response = await userFindOne.save();
+``
+        return res
+        .status(201)
+        .send({ message: 'User Address Added', success: true, response });
+    } catch (er) {
+        return res.status(500).send({ message: er.message });
+    }
+};
+
+module.exports = { CreateUser, verifyUserController, signup, login, getUserData, AddAddressController };

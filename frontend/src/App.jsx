@@ -4,14 +4,17 @@ import Signup from "../src/component/auth/Signup";
 import HomePage from "./Pages/HomePage";
 import ProductEntryPage from "./Pages/ProductEntryPage";
 import UpdateForm from "./Pages/UpdateForm";
-// import Navbar from "./component/Navbar/Navbar";
+import Navbar from "./component/Navbar/Navbar";
 import SinglePageProduct from "./Pages/SingleProductPage";
 import CartPage from "./Pages/CartPage";
 import ProfilePage from "./Pages/Profile";
+import Navbar from './component/Navbar/Navbar';
+import AddressCard from "./component/AddressComp/AddressCard";
 
 function App () {
   return (
     <>
+    <AddressCard />
     <Navbar />
     {/* {<LoginPage />} */}
     {/* <SignupForm /> */}
