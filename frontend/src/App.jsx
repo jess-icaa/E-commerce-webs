@@ -4,7 +4,6 @@ import Signup from "../src/component/auth/Signup";
 import HomePage from "./Pages/HomePage";
 import ProductEntryPage from "./Pages/ProductEntryPage";
 import UpdateForm from "./Pages/UpdateForm";
-import Navbar from "./component/Navbar/Navbar";
 import SinglePageProduct from "./Pages/SingleProductPage";
 import CartPage from "./Pages/CartPage";
 import ProfilePage from "./Pages/Profile";
@@ -14,7 +13,6 @@ import AddressCard from "./component/AddressComp/AddressCard";
 function App () {
   return (
     <>
-    <AddressCard />
     <Navbar />
     {/* {<LoginPage />} */}
     {/* <SignupForm /> */}
@@ -27,6 +25,7 @@ function App () {
       <Route path="/product-details/:id" element={<SinglePageProduct />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/add-address" element={<AddressCard />} />
     </Routes>
     </>
   );
