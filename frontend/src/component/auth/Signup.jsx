@@ -3,7 +3,7 @@ import ValidationFormObject from '../../validation.js';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function SignupPage() {
+function SignupForm() {
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -14,6 +14,7 @@ export default function SignupPage() {
   // name
   // pass
   // email
+  const navigateUser = useNavigate();
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if(name=='file'){
@@ -30,7 +31,7 @@ export default function SignupPage() {
     // console.log(data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const NameV = ValidationFormObject.validateName(data.name);
     const EmailV = ValidationFormObject.validateEmail(data.email);
