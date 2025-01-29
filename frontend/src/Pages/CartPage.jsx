@@ -22,6 +22,9 @@ function CardPage() {
         }, []);
         return (
         <div>
+            <Link >
+            <button className="bg-slate-800 color-white px-10 py-5 rounded-md ml-40">Checkout</button> 
+            </Link>
             {UsersCartData?.map((singleCartObject, index) => {
                 return (
                     <div key={index}>
