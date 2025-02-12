@@ -7,6 +7,7 @@ const {
     login,
     getUserData,
     AddAddressController,
+    GetAddressController,
 } = require('../controllers/user.controller.js');
 const jwt = require('jsonwebtoken');
 const verifyUser = require('jwt-verify');
@@ -22,5 +23,7 @@ router.post('/login', login);
 router.get('/user-data', verifyUser, getUserData);
 
 router.post('/add-address', verifyUser , AddAddressController);
+
+router.get('/get-addresses', verifyUser, GetAddressController);
 
 module.exports = router;

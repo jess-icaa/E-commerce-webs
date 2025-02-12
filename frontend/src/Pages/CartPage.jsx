@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import CartCard from "../component/ProductCard/CartCard";
 
 function CardPage() {
@@ -22,7 +23,7 @@ function CardPage() {
         }, []);
         return (
         <div>
-            <Link >
+            <Link to={'/select-addresses'}>
             <button className="bg-slate-800 color-white px-10 py-5 rounded-md ml-40">Checkout</button> 
             </Link>
             {UsersCartData?.map((singleCartObject, index) => {
