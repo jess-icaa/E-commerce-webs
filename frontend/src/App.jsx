@@ -31,7 +31,7 @@ function App () {
       <Route path="/select-address" element={<SelectAddress />} />
       <Route path="/order-confirmation" element={<OrderConfirmation />} />````
     </Routes>
-    </>``
+    </>
   );
 }
 
