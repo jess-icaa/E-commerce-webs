@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../middlewares/jwt-verify');
+const verifyUser = require('../middlewares/jwt-verify.js');
+const {
+    GetUserOrderController,
+    CreateOrderController,
+} = require('../controllers/order.controller.js');
 
-router.post('/confirm-orer', verifyToken);
+router.get('/user-orders-data', verifyUser, GetUserOrderController);
+router.post('/confirm-order', verifyUser, CreateOrderController);
 
 module.exports = router;
 
