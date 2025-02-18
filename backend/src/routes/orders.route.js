@@ -6,4 +6,3 @@ router.post('/confirm-orer', verifyToken);
 
 module.exports = router;
 
-``
