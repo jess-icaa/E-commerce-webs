@@ -6,6 +6,7 @@ const UserModel = require('../models/user.model.js');
 async function CreateOrderController(req, res) {
     const userId = req.UserId;
     const { Items, address, totalAmount } = req.body;
+    console.log(Items);
     try {
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res 
@@ -76,8 +77,38 @@ async function GetUserOrdersController(req, res) {
     }
 }
 
+async function CancelOrder(req, res) {
+    const userId = req.UserId;
+    const orderId = req.query.orderId;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res 
+                .status(400)
+                .send({ message: 'Invalid User Id', success: false });
+        }
+        if (!mongoose.Types.ObjectId.isValid(orderId)) {
+            return res 
+                .status(400)
+                .send({ message: 'Invalid Order Id', success: false });
+        }
+        await OrderModel.findByIdAndUpdate(
+            { _id: orderId },
+            {
+                orderStatus: 'Cancelled',
+            },
+            {
+                new: true,
+            }
+        );
+        return res 
+            .status(200)
+            .send({ message: 'Order Cancelled successfully..', success: false });
+    }
+}
+
 
 module.exports = {
     CreateOrderController,
-    GetUserOrdersController
+    GetUserOrdersController,
+    CancelOrder,
 };
