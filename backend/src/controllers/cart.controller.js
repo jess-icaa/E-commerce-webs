@@ -6,37 +6,43 @@ async function AddToCartControllwer(req, res) {
     const userId=req.UserId;
     try {
         if(!mongoose.Types.ObjectId.isValid(productId)){
-            return res.status(400).send({message: 'Send Valid Product ID'})
+            return res.status(400).send({message: 'Send Valid Product ID', success: false })
         }
         if(!mongoose.Types.ObjectId.isValid(userId)){
-            return res.status(400).send({message: 'Send Valid Product ID'})
+            return res.status(400).send({message: 'Send Valid Product ID', success: false })
         }
         const checkUserPresent = await UserModel.findOne({_id:userId});
         if(!checkUserPresent){
             return res.status(401).send({message: 'Send Valid Product ID'})
         }
-        const checkIfProdPresent= await cartModel.findOne({_id:productId})
+        const checkIfProdPresent= await cartModel.findOne({ 
+            productId: productId,
+            userId,
+        });
         if(checkIfProdPresent){
-            return res.status(400).send({message:'product already present in cart'})
+            return res.status(400).send({message:'product already present in cart', success: false })
         }
         await cartModel.create({
             productId,
             quantity,
             userId,
         });
+        return res 
+            .status(201)
+            .send({ message: 'Product is successfully created', success: true });
     } catch (err) {
         return res.status(500).send({message: err.message, success:false})
     }
 }
-async function getProducts(req, res){
+async function GetProductsForUser(req, res){
     const userId=req.userId;
     try {
         if(!mongoose.Types.ObjectId.isValid(userId)){
-            return res.status(401).send({message:'Unauthorized'})
+            return res.status(401).send({message:'Unauthorized Please Signup'})
         }
         const checkUserPresent= await UserModel.findOne({_id:userId})
         if(!checkUserPresent){
-            return res.status(401).send({message:'unauthorized'})
+            return res.status(401).send({message:'Unauthorized Please Signup'})
         }
         const data= await cartModel.find({userId}).populate('productId');
         return res.status(200).send({
@@ -48,4 +54,5 @@ async function getProducts(req, res){
         return res.status(500).send({message: err.message, success:false})
     }
 }
-module.exports={AddToCartControllwer, getProducts};
+
+module.exports={AddToCartControllwer, GetProductsForUser};
