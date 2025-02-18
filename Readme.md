@@ -107,4 +107,23 @@
 
 ## Milestone 20
 1. Creating a backend endpoint that sends all user data using mail.
-2. Creating a frontend profile page that displays all the user data i.e., display profile photo, name, mail and addresses.`
+2. Creating a frontend profile page that displays all the user data i.e., display profile photo, name, mail and addresses.
+
+## Milestone 21
+1. Creating a frontend form that takes the address.
+2. Taking country, city, address1, address2, zip code, address type
+
+## Milestone 22
+1. Creating a backend endpoint that stores the address inside user profile in database.
+
+## Milestone 23
+1. Creating a placeorder button inside cart page and navigate to select address page when clicked.
+2. Creating and selecting address page that will display all the available address and have an option to select one address.
+3. To write a backend endpoint that sends all the addresses of the user.
+
+## Milestone 24
+1. To display all the products we are ordering
+2. To display the address user selected to deliver
+3. To display the total value of the cart
+4. To place an order button at the bottom.
+

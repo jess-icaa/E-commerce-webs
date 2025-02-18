@@ -2,10 +2,11 @@ const ErrorHandler = require('../utilities/ErrorHandler.js');
 const UserModel = require('../models/user.model.js');
 const transporter = require('../utilities/sendmail.js');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const cloudinary = require('../utilities/cloudinary.js');
 const fs = require('fs');
 const { default: mongoose } = require('mongoose');
+const { userInfo } = require('os');
 
 require('dotenv').config({
     path: '../config/.env',
@@ -201,7 +202,6 @@ const AddAddressController = async (req, res) => {
 
         userFindOne.address.push(userAddress);
         const response = await userFindOne.save();
-``
         return res
         .status(201)
         .send({ message: 'User Address Added', success: true, response });
@@ -210,4 +210,23 @@ const AddAddressController = async (req, res) => {
     }
 };
 
-module.exports = { CreateUser, verifyUserController, signup, login, getUserData, AddAddressController };
+const GetAddressController = async(req, res)=> {
+    const userId = req.UserId;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(401).send({ message: 'Please login, un-Authorised' });
+        }
+        const checkUser = await UserModel.findOne({ _id: userId });
+        if (!checkUser) {
+            return res.status(401).send({ message: 'Please signup' })
+        }
+        return res.status(200).send({ 
+            userInfo: checkUser,
+            message: 'Success',
+            success: true,
+        });
+    } catch (err) {
+        return res.status(500).send({ message: er.message });
+    }
+};
+module.exports = { CreateUser, verifyUserController, signup, login, getUserData, AddAddressController, GetAddressController };
