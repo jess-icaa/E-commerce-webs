@@ -4,6 +4,7 @@ const userRouter = require('./routes/user.route.js');
 const productRouter = require('./routes/product.route.js');
 const cartRouter = require('./routes/product.route.js');
 const OrderRouter = require('./routes/orders.route.js');
+const PaymentRouter = require('./routes/payment.route.js');
 
 if (process.env.NODE_ENV !== 'PRODUCTION') {
     require('dotenv').config({
@@ -25,7 +26,8 @@ app.get("/", (req, res)=>{
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
-app.use('/cart', cartRouter);
+app.use('/cart', cartRouter);``
 app.use('/orders', OrderRouter);
+app.use('/payment', PaymentRouter);
 
 module.exports = app;
