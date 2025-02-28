@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CartCard from '../component/ProductCard/CartCard';
+import { useNavigate } from 'react-router-dom';
+import { handlePay } from '../Utils/Razorpay';
 export default function OrderConfirmation() {
   const [cartData, setUsersCartData] = useState([]);
   const [total, setTotal] = useState(0);
   const [userAddress, setAddress] = useState(
     JSON.parse(localStorage.getItem('address')) || {}
   );
-  // totoal
+  const navigate = useNavigate();
+  // total
   // address
   // cart data
   useEffect(() => {
@@ -22,15 +25,37 @@ export default function OrderConfirmation() {
 
       let sum = 0;
       response.data.cartData.forEach((ele, index) => {
-        sum = sum + ele.productId.originalPrice;
+        sum = sum + ele.productId && ele.productId.originalPrice;
       });
       setTotal(sum);
+      console.log(response.data.cartData);
 
       setUsersCartData(response.data.cartData);
     };
-
+``
     getCartData();
   }, []);
+
+  const OrderConfirmation = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return alert('Token is missing please signup');
+    }
+    const response = await axios.post(
+      `http://localhost:8080/orders/confirm-order?token=${token}`,
+      {
+        Items: cartData,
+        address: userAddress,
+        totalAmount: total,
+      }
+    );
+    handlePay(total, token, cartData)
+    .then((res) => {
+      navigate('/order-history');
+    })
+    .catch((er) => console.log(er.message));
+    console.log(response);
+  };
 
   return (
     <div>
@@ -78,8 +103,11 @@ export default function OrderConfirmation() {
             })}
         </div>
         <div className="flex justify-center mt-5">
-          <button className="px-5 py-2 rounded-lg bg-blue-500 text-white hover:bg-green-500">
-            Confirm order
+          <button 
+          className="px-5 py-2 rounded-lg bg-blue-500 text-white hover:bg-green-500"
+          onClick={OrderConfirmation}
+          >
+            Confirm order{total}
           </button>
         </div>
       </div>
